@@ -1,0 +1,8 @@
+services:
+  wiki:
+    build: .
+    environment:
+      - DATABASE_URL=sqlite:///./app.db
+      - SECRET_KEY=e381f5ef-fd1a-480c-ac39-37b9172d859f
+    ports:
+      - 80:5000

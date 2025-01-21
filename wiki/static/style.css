@@ -1,0 +1,188 @@
+body {
+    font-family: "Lora", serif;
+}
+
+textarea {
+    width: 100%;
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+.container {
+    display: grid;
+    grid-template-areas:
+      "header"
+      "content";
+    width: 50%;
+    margin: auto;
+}
+
+.container > div.header {
+    grid-area: header;
+}
+
+.container > div.content {
+    grid-area: content;
+}
+
+.results-container {
+    --padding: 14px;
+
+    display: grid;
+    grid-template-areas:
+      "header header" 
+      "search-area new"
+      "results results";
+    grid-template-columns: auto fit-content(100%);
+    width: 50%;
+    margin: auto;
+    gap: 20px;
+}
+
+.results-container > div.header {
+    grid-area: header;
+}
+
+.results-container > div.search-area {
+    grid-area: search-area;
+}
+
+.results-container > div.new {
+    grid-area: new;
+}
+
+.results-container > div.results {
+    grid-area: results;
+}
+
+.new-button {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    padding: var(--padding);
+    border-radius: 10px;
+    background: #c0c0c0;
+    text-decoration: none;
+    color: #333333;
+    font-family: "Verdana";
+}
+
+.new-text {
+    font-size: 16px;
+    color: #333333;
+}
+
+.search {
+    display: flex;
+    align-items: center;
+    padding: var(--padding);
+    border-radius: 28px;
+    background: #f6f6f6;
+    transition: box-shadow 0.25s;
+}
+
+.search:focus-within {
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.75);
+}
+
+.search-input {
+    font-size: 16px;
+    color: #333333;
+    margin-left: var(--padding);
+    outline: none;
+    border: none;
+    background: transparent;
+    flex: 1;
+}
+
+.search-input::placeholder, .search-icon {
+    color: rgba(0, 0, 0, 0.5);
+}
+
+.results-card {
+    display: grid;
+    grid-template-areas:
+      "title edit delete";
+    grid-template-columns: 6fr 1fr 1fr;
+    border-radius: 10px;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    margin-bottom: 10px;
+    align-items: center;
+}
+
+.title {
+    grid-area: title;
+}
+
+.edit {
+    grid-area: edit;
+}
+
+.delete {
+    grid-area: delete;
+}
+
+.edit a, .delete a, .title {
+    text-decoration: none;
+    color: #333333;
+}
+
+.edit-icon, .delete-icon {
+    float: right;
+}
+
+.edit-form {
+    display: grid;
+    grid-template-areas:
+      "title title"
+      "rtf rtf"
+      "submit reset";
+    height: auto;
+    gap: 20px;
+}
+
+.edit-form > div.title {
+    grid-area: title;
+}
+
+.edit-form > div.rtf {
+    grid-area: rtf;
+    height: fit-content;
+}
+
+.edit-form > button.submit {
+    grid-area: submit;
+}
+
+.edit-form > button.reset {
+    grid-area: reset;
+}
+
+.reset, .submit {
+    padding: 14px;
+    border-radius: 10px;
+    background: #c0c0c0;
+    border: none;
+    color: #333333;
+    font-family: "Verdana";
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+.rtf > label, .title > label {
+    display: block;
+    margin-bottom: 4px;
+    font-size: 16px;
+}
+
+.title > input {
+    box-sizing: border-box;
+    width: 100%;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 12px 15px;
+}

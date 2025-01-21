@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+        <div class="header">
+            <h1>
+                {% if page %}
+                    Edit document
+                {% else %}
+                    Create a new document
+                {% endif %}
+            </h1>
+        </div>
+        <div class="content">
+            <form class="edit-form" action="{{ request.url }}" method="post">
+                <div class="title form-group">
+                  <label for="title">Title</label>
+                  <input id="title" name="title" type="text">
+                </div>
+                <div class="rtf form-group">
+                  <label>Content</label>
+                  <div id="editor"></div>
+                </div>
+                <button class="submit" type="submit">Submit</button>
+                <button class="reset" type="button" id="resetForm">Reset to initial data</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        var urlParams = new URLSearchParams(window.location.search);
+        var id = urlParams.get('id');
+
+        const quill = new Quill('#editor', {
+            modules: {
+                toolbar: [
+                    ['bold', 'italic'],
+                    ['link', 'blockquote', 'code-block'],
+                    [{ list: 'ordered' }, { list: 'bullet' }],
+                    [{ header: 2 }, { header: 3 }]
+                ],
+            },
+            theme: 'snow',
+        });
+
+        const resetForm = () => {
+            {% if page %}
+                document.querySelector('[name="title"]').value = {{ page.title|tojson }};
+                quill.setContents(JSON.parse({{ page.content|tojson }}));
+            {% else %}
+                document.querySelector('[name="title"]').value = "";
+                quill.setContents({});
+            {% endif %}
+        };
+
+        resetForm();
+
+        const form = document.querySelector('form');
+        form.addEventListener('formdata', (event) => {
+            event.formData.append('content', JSON.stringify(quill.getContents().ops));
+        });
+
+        document.querySelector('#resetForm').addEventListener('click', () => {
+            resetForm();
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+        <div class="header"><h1>{{ page.title }}</h1></div>
+        <div id="viewContent" class="content"></div>
+    </div>
+
+    <script>
+        var quill = new Quill(document.createElement('div'));
+        quill.setContents(JSON.parse({{ page.content | tojson }}));
+
+        var html = quill.root.innerHTML;
+        document.getElementById('viewContent').innerHTML = html;
+    </script>
+{% endblock %}

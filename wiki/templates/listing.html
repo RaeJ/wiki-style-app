@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="results-container">
+        <div class="header">
+            <h1>Documents</h1>
+        </div>
+        <div class="search-area">
+            <form id="searchForm" action="/" method="post">
+                <div class="search">
+                    <span class="search-icon material-symbols-outlined">search</span>
+                    <input id="searchInput" class="search-input" name="search-input" type="search" placeholder="Search">
+                    <input type="submit" style="visibility: hidden; position: absolute;">
+                </div>
+            </form>
+        </div>
+        <div class="new">
+            <a class="new-button" href="/edit">
+                <span class="add-icon material-symbols-outlined">add</span>
+                <span class="new-text">New Doc</span>
+            </a>
+        </div>
+        <div class="results">
+            {% for page in pages %}
+                <div class="results-card">
+                    <a class="title" href="/view/{{ page.id }}">
+                        {{ page.title }}
+                    </a>
+                    <div class="edit">
+                        <a class="edit-icon material-symbols-outlined" href="/edit?id={{ page.id }}">edit</a>
+                    </div>
+                    <div class="delete">
+                        <a class="delete-icon material-symbols-outlined" href="/delete/{{ page.id }}">delete</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <script>
+        var searchInput = document.getElementById('searchInput');
+        var timeout = null;
+    
+        searchInput.onkeyup = function (e) {
+            clearTimeout(timeout);
+            
+            timeout = setTimeout(function () {
+                document.getElementById('searchForm').submit();
+            }, 500);
+        };
+    </script>
+{% endblock %}
